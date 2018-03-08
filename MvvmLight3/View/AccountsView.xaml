@@ -1,9 +1,8 @@
-﻿<Page x:Class="MvvmLight3.View.TaskView"
+﻿<Page x:Class="MvvmLight3.View.AccountsView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:MvvmLight3.View"
       xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
       xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
       xmlns:ignore="http://www.galasoft.ch/ignore"
@@ -17,33 +16,38 @@
       TextElement.FontSize="13"
       TextOptions.TextFormattingMode="Ideal" 
       TextOptions.TextRenderingMode="Auto"
-      Background="{DynamicResource MaterialDesignPaper}" Width="500" Height="500">
-
+      Background="{DynamicResource MaterialDesignPaper}">
     <Page.DataContext>
-        <Binding Path="Tasks" Source="{StaticResource Locator}"/>
+        <Binding Path="Accounts" Source="{StaticResource Locator}"/>
     </Page.DataContext>
     <Grid>
-        <ListView ItemsSource="{Binding navMenu}"
-                          SelectedIndex="0"
-                          SelectedItem="{Binding selectedItem}" 
-                          Margin="6,6,6,0" 
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        <ListView ItemsSource="{Binding accountList}" 
+                  HorizontalContentAlignment="Stretch" 
+                  VerticalContentAlignment="Stretch" 
+                  Margin="4" 
+                  Cursor="Hand">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <cmd:EventToCommand Command="{Binding Navigate}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon Kind="{Binding NavIcon}"
-                                                         VerticalAlignment="Center" 
-                                                         Width="20" 
-                                                         Height="20"/>
-                        <Label Content="{Binding NavTitle}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Name}" 
+                                    Header="Name" 
+                                    Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Telephone}" 
+                                    Header="Telephone 1" 
+                                    Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Telephone}" 
+                                    Header="Telephone 2" 
+                                    Width="auto"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding Email}" 
+                                    Header="Email" 
+                                    Width="auto"/>
+                </GridView>
+            </ListView.View>
         </ListView>
+
     </Grid>
 </Page>

@@ -18,9 +18,9 @@ namespace MvvmLight3.View
     /// <summary>
     /// Interaction logic for TaskView.xaml
     /// </summary>
-    public partial class TaskView : Page
+    public partial class TasksView : Page
     {
-        public TaskView()
+        public TasksView()
         {
             InitializeComponent();
         }

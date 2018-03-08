@@ -1,9 +1,11 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using MvvmLight3.Model;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 
@@ -23,20 +25,20 @@ namespace MvvmLight3.ViewModel
         public MainViewModel(IDataService dataService)
         {
             this.navMenu = new ObservableCollection<NavigationItem>();
-            navMenu.Add(new NavigationItem { NavTitle = "Home", NavIcon = "Home", NavPage = "HomeView" });
-            navMenu.Add(new NavigationItem { NavTitle = "Tasks", NavIcon = "CalendarCheck", NavPage = "AccountsView" });
-            navMenu.Add(new NavigationItem { NavTitle = "Customers", NavIcon = "Account", NavPage = "AccountsView" });
-            navMenu.Add(new NavigationItem { NavTitle = "Suppliers", NavIcon = "Palette", NavPage = "SuppliersView" });
-            navMenu.Add(new NavigationItem { NavTitle = "Standard Items", NavIcon = "Wrench", NavPage = "OrdersView" });
-            navMenu.Add(new NavigationItem { NavTitle = "Quotes", NavIcon = "FormatQuoteClose", NavPage = "OrdersView" });
-            navMenu.Add(new NavigationItem { NavTitle = "Orders", NavIcon = "Send", NavPage = "OrdersView" });
-            navMenu.Add(new NavigationItem { NavTitle = "Deliveries", NavIcon = "Truck", NavPage = "OrdersView" });
-            navMenu.Add(new NavigationItem { NavTitle = "Invoices", NavIcon = "BookVariant", NavPage = "OrdersView" });
-            navMenu.Add(new NavigationItem { NavTitle = "Credits", NavIcon = "CreditCard", NavPage = "OrdersView" });
-            navMenu.Add(new NavigationItem { NavTitle = "Purchases", NavIcon = "Basket", NavPage = "OrdersView" });
-            navMenu.Add(new NavigationItem { NavTitle = "Stock", NavIcon = "Widgets", NavPage = "OrdersView" });
-            navMenu.Add(new NavigationItem { NavTitle = "NCRs", NavIcon = "Alert", NavPage = "OrdersView" });
-            navMenu.Add(new NavigationItem { NavTitle = "Reports", NavIcon = "Finance", NavPage = "ReportsView" });
+            navMenu.Add(new NavigationItem { NavTitle = "Home", NavIcon = "Home", NavPage = "View/TasksView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "Tasks", NavIcon = "CalendarCheck", NavPage = "View/TasksView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "Customers", NavIcon = "Account", NavPage = "View/AccountsView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "Suppliers", NavIcon = "Palette", NavPage = "View/TasksView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "Standard Items", NavIcon = "Wrench", NavPage = "View/TasksView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "Quotes", NavIcon = "FormatQuoteClose", NavPage = "View/TasksView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "Orders", NavIcon = "Send", NavPage = "View/TasksView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "Deliveries", NavIcon = "Truck", NavPage = "View/TasksView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "Invoices", NavIcon = "BookVariant", NavPage = "View/TasksView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "Credits", NavIcon = "CreditCard", NavPage = "View/TasksView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "Purchases", NavIcon = "Basket", NavPage = "View/TasksView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "Stock", NavIcon = "Widgets", NavPage = "View/TasksView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "NCRs", NavIcon = "Alert", NavPage = "View/TasksView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "Reports", NavIcon = "Finance", NavPage = "View/TasksView.xaml" });
         }        
 
         private NavigationItem _selectedItem;
@@ -57,7 +59,8 @@ namespace MvvmLight3.ViewModel
                         if (_navigate != null)
                         {
                             if (_navigate != null) {
-                                Debug.Print(selectedItem.NavPage.ToString());
+                                this.mainFrame = new Uri(selectedItem.NavPage.ToString(), UriKind.Relative);
+                                Cleanup();
                             }
                         }
                     });
@@ -65,13 +68,26 @@ namespace MvvmLight3.ViewModel
             }
         }
 
+        public void NavigateChild()
+        {
+
+        }
+
         public ObservableCollection<NavigationItem> navMenu { get; set; }
 
-        ////public override void Cleanup()
-        ////{
-        ////    // Clean up if needed
+        private Uri _mainFrame;
+        public Uri mainFrame
+        {
+            get { return _mainFrame; }
+            set { if (_mainFrame != value) { _mainFrame = value; RaisePropertyChanged("mainFrame"); } }
+        }
 
-        ////    base.Cleanup();
-        ////}
+
+        public override void Cleanup()
+        {
+            // Clean up if needed
+
+            base.Cleanup();
+        }
     }
 }

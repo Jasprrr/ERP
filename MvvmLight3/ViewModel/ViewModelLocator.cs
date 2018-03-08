@@ -40,6 +40,7 @@ namespace MvvmLight3.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<TasksViewModel>();
+            SimpleIoc.Default.Register<AccountsViewModel>();
         }
 
         /// <summary>
@@ -64,6 +65,13 @@ namespace MvvmLight3.ViewModel
             }
         }
 
+        public AccountsViewModel Accounts
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<AccountsViewModel>();
+            }
+        }
         /// <summary>
         /// Cleans up all the resources.
         /// </summary>
