@@ -21,7 +21,7 @@ namespace MvvmLight3.ViewModel
         public TasksViewModel()
         {
             this.tasks = new ObservableCollection<Task>();
-            tasks.Add(new Task { DueDate = new DateTime(2008, 3, 1, 7, 0, 0), Account = "Acc 01", Description = "Task to do" });
+            tasks.Add(new Task { DueDate = new DateTime(2008, 3, 1, 7, 0, 0), Account = "Acc 02", Description = "Task to do" });
             tasks.Add(new Task { DueDate = new DateTime(2008, 3, 1, 7, 0, 0), Account = "Acc 02", Description = "Task to do" });
             tasks.Add(new Task { DueDate = new DateTime(2008, 3, 1, 7, 0, 0), Account = "Acc 03", Description = "Task to do" });
             tasks.Add(new Task { DueDate = new DateTime(2008, 3, 1, 7, 0, 0), Account = "Acc 04", Description = "Task to do" });
