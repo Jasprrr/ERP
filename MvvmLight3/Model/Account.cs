@@ -11,5 +11,13 @@ namespace MvvmLight3.Model
         public string Name { get; set; }
         public string Email { get; set; }
         public string Telephone { get; set; }
+
+        public string Initial
+        {
+            get
+            {
+                return Name.Substring(0, 1);
+            }
+        }
     }
 }

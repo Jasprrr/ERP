@@ -64,13 +64,13 @@ namespace MvvmLight3.ViewModel
         //    }
         //}
 
-        //public TasksViewModel Tasks
-        //{
-        //    get
-        //    {
-        //        return ServiceLocator.Current.GetInstance<TasksViewModel>();
-        //    }
-        //}
+        public TasksViewModel Tasks
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<TasksViewModel>();
+            }
+        }
 
         public AccountsViewModel AccountsViewModel
         {

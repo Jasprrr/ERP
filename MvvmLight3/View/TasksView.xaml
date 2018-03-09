@@ -17,11 +17,8 @@
       TextElement.FontSize="13"
       TextOptions.TextFormattingMode="Ideal" 
       TextOptions.TextRenderingMode="Auto"
-      Background="{DynamicResource MaterialDesignPaper}">
-
-    <Page.DataContext>
-        <Binding Path="Tasks" Source="{StaticResource Locator}"/>
-    </Page.DataContext>
+      Background="{DynamicResource MaterialDesignPaper}"
+      DataContext="{Binding Source={StaticResource Locator}, Path=Tasks}">
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <ItemsControl ItemsSource="{Binding taskList}" 
