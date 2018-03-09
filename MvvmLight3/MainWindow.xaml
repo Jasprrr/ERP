@@ -21,7 +21,8 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
+        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}"
+        Icon="Resources/icon.ico">
     <Grid x:Name="LayoutRoot">
         <Grid>
             <Grid.ColumnDefinitions>
