@@ -16,10 +16,8 @@
       TextElement.FontSize="13"
       TextOptions.TextFormattingMode="Ideal" 
       TextOptions.TextRenderingMode="Auto"
-      Background="{DynamicResource MaterialDesignPaper}">
-    <Page.DataContext>
-        <Binding Path="Accounts" Source="{StaticResource Locator}"/>
-    </Page.DataContext>
+      Background="{DynamicResource MaterialDesignPaper}"
+      DataContext="{Binding Source={StaticResource Locator}, Path=AccountsViewModel}">
     <Grid>
         <ListView ItemsSource="{Binding accountList}" 
                   HorizontalContentAlignment="Stretch" 

@@ -11,8 +11,11 @@
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Practices.ServiceLocation;
+using MvvmLight3.Common;
 using MvvmLight3.Model;
+using System;
 
 namespace MvvmLight3.ViewModel
 {
@@ -38,45 +41,58 @@ namespace MvvmLight3.ViewModel
                 SimpleIoc.Default.Register<IDataService, DataService>();
             }
 
+            SetupNavigation();
+
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<TasksViewModel>();
             SimpleIoc.Default.Register<AccountsViewModel>();
         }
 
         /// <summary>
-        /// Gets the Main property.
+        /// Gets the main page view model.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
-            "CA1822:MarkMembersAsStatic",
-            Justification = "This non-static member is needed for data binding purposes.")]
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
+        public MainViewModel MainViewModel => SimpleIoc.Default.GetInstance<MainViewModel>();
+        public TasksViewModel HomePageViewModel => SimpleIoc.Default.GetInstance<TasksViewModel>();
+        public AccountsViewModel CompaniesViewModel => SimpleIoc.Default.GetInstance<AccountsViewModel>();
 
-        public TasksViewModel Tasks
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<TasksViewModel>();
-            }
-        }
+        //this, name=> { NameProperty = name}
+        //public MainViewModel Main
+        //{
+        //    get
+        //    {
+        //        return ServiceLocator.Current.GetInstance<MainViewModel>();
+        //    }
+        //}
 
-        public AccountsViewModel Accounts
+        //public TasksViewModel Tasks
+        //{
+        //    get
+        //    {
+        //        return ServiceLocator.Current.GetInstance<TasksViewModel>();
+        //    }
+        //}
+
+        public AccountsViewModel AccountsViewModel
         {
             get
             {
                 return ServiceLocator.Current.GetInstance<AccountsViewModel>();
             }
         }
-        /// <summary>
-        /// Cleans up all the resources.
-        /// </summary>
-        public static void Cleanup()
+
+        private static void RegisterServiceProviders()
         {
+            SimpleIoc.Default.Register<IMessenger, Messenger>();
+            SimpleIoc.Default.Register<MvvmLight3.Common.NavigationService>();
+        }
+
+        private static void SetupNavigation()
+        {
+            var navigationService = new FrameNavigationService();
+            navigationService.Configure("TasksView", new Uri("../View/TasksView.xaml", UriKind.Relative));
+            navigationService.Configure("AccountsView", new Uri("../View/AccountsView.xaml", UriKind.Relative));
+
+            SimpleIoc.Default.Register<IFrameNavigationService>(() => navigationService);
         }
     }
 }

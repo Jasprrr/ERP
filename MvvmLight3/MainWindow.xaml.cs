@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using MvvmLight3.ViewModel;
+
 
 namespace MvvmLight3
 {
@@ -14,9 +14,7 @@ namespace MvvmLight3
         public MainWindow()
         {
             InitializeComponent();
-            Closing += (s, e) => ViewModelLocator.Cleanup();
         }
-
 
         private void PopupBox_OnOpened(object sender, RoutedEventArgs e)
         {

@@ -20,11 +20,8 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"
-        Background="{DynamicResource MaterialDesignPaper}">
-    <Window.DataContext>
-        <Binding Path="Main" Source="{StaticResource Locator}"/>
-    </Window.DataContext>
-
+        Background="{DynamicResource MaterialDesignPaper}"
+        DataContext="{Binding MainViewModel, Source={StaticResource Locator}}">
     <Grid x:Name="LayoutRoot">
         <Grid>
             <Grid.ColumnDefinitions>

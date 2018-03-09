@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using MvvmLight3.Model;
 using System;
 using System.Collections.ObjectModel;
@@ -15,12 +16,24 @@ namespace MvvmLight3.ViewModel
     /// </summary>
     public class TasksViewModel : ViewModelBase
     {
+        private readonly IDataService _dataService;
         /// <summary>
         /// Initializes a new instance of the TasksViewModel class.
         /// </summary>
-        public TasksViewModel()
+        public TasksViewModel(IDataService dataService)
         {
+            _dataService = dataService;
+            _dataService.GetData(
+                (item, error) =>
+                {
+                    if (error != null)
+                    {
+                        // Report error here
+                        return;
+                    }
+                });
             this.taskList = new ObservableCollection<Task>();
+            Messenger.Default.Register<string>(this, DoSomething);
             taskList.Add(new Task { DueDate = new DateTime(2008, 3, 1, 7, 0, 0), Account = "Acc 01", Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel lectus commodo, interdum lacus vel, tristique nisl. Cras ut sapien at lectus lobortis dictum ac a ex. Sed fringilla gravida nunc. Integer in erat eleifend, sollicitudin tortor at, luctus quam. Vestibulum eget augue purus. Donec quis hendrerit erat, a ornare purus." });
             taskList.Add(new Task { DueDate = new DateTime(2008, 3, 1, 7, 0, 0), Account = "Acc 02", Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel lectus commodo, interdum lacus vel, tristique nisl. Cras ut sapien at lectus lobortis dictum ac a ex. Sed fringilla gravida nunc. Integer in erat eleifend, sollicitudin tortor at, luctus quam. Vestibulum eget augue purus. Donec quis hendrerit erat, a ornare purus." });
             taskList.Add(new Task { DueDate = new DateTime(2008, 3, 1, 7, 0, 0), Account = "Acc 03", Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel lectus commodo, interdum lacus vel, tristique nisl. Cras ut sapien at lectus lobortis dictum ac a ex. Sed fringilla gravida nunc. Integer in erat eleifend, sollicitudin tortor at, luctus quam. Vestibulum eget augue purus. Donec quis hendrerit erat, a ornare purus." });
@@ -35,6 +48,11 @@ namespace MvvmLight3.ViewModel
             taskList.Add(new Task { DueDate = new DateTime(2008, 3, 1, 7, 0, 0), Account = "Acc 12", Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel lectus commodo, interdum lacus vel, tristique nisl. Cras ut sapien at lectus lobortis dictum ac a ex. Sed fringilla gravida nunc. Integer in erat eleifend, sollicitudin tortor at, luctus quam. Vestibulum eget augue purus. Donec quis hendrerit erat, a ornare purus." });
             taskList.Add(new Task { DueDate = new DateTime(2008, 3, 1, 7, 0, 0), Account = "Acc 13", Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel lectus commodo, interdum lacus vel, tristique nisl. Cras ut sapien at lectus lobortis dictum ac a ex. Sed fringilla gravida nunc. Integer in erat eleifend, sollicitudin tortor at, luctus quam. Vestibulum eget augue purus. Donec quis hendrerit erat, a ornare purus." });
             taskList.Add(new Task { DueDate = new DateTime(2008, 3, 1, 7, 0, 0), Account = "Acc 14", Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vel lectus commodo, interdum lacus vel, tristique nisl. Cras ut sapien at lectus lobortis dictum ac a ex. Sed fringilla gravida nunc. Integer in erat eleifend, sollicitudin tortor at, luctus quam. Vestibulum eget augue purus. Donec quis hendrerit erat, a ornare purus." });
+        }
+
+        private void DoSomething(string obj)
+        {
+            throw new NotImplementedException();
         }
 
         private Task _selectedItem;

@@ -1,4 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using MvvmLight3.Model;
 using System.Collections.ObjectModel;
 
@@ -12,11 +14,45 @@ namespace MvvmLight3.ViewModel
     /// </summary>
     public class AccountsViewModel : ViewModelBase
     {
+        private readonly IDataService _dataService;
+
+        private RelayCommand _navigate;
+        public RelayCommand Navigate
+        {
+            get
+            {
+                if (_navigate == null)
+                {
+                    _navigate = new RelayCommand(() =>
+                    {
+                        if (_navigate != null)
+                        {
+                            if (_navigate != null)
+                            {
+                                Messenger.Default.Send(new NotificationMessage("test"));
+                            }
+                        }
+                    });
+                }
+                return _navigate;
+            }
+        }
+
         /// <summary>
         /// Initializes a new instance of the AccountsViewModel class.
         /// </summary>
-        public AccountsViewModel()
+        public AccountsViewModel(IDataService dataService)
         {
+            //_dataService = dataService;
+            //_dataService.GetData(
+            //    (item, error) =>
+            //    {
+            //        if (error != null)
+            //        {
+            //            // Report error here
+            //            return;
+            //        }
+            //    });
             accountList = new ObservableCollection<Account>();
             accountList.Add(new Account() { Name = "Tim Co.", Email = "tim@tim.co", Telephone = "0800 000 001" });
             accountList.Add(new Account() { Name = "Bob Co.", Email = "bob@bob.co", Telephone = "0800 000 002" });

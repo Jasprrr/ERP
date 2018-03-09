@@ -1,5 +1,4 @@
-﻿using GalaSoft.MvvmLight.Messaging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace MvvmLight3.View
 {
     /// <summary>
-    /// Interaction logic for AccountsView.xaml
+    /// Interaction logic for AccountView.xaml
     /// </summary>
-    public partial class AccountsView : Page
+    public partial class AccountView : Window
     {
-        public AccountsView()
+        public AccountView()
         {
             InitializeComponent();
         }

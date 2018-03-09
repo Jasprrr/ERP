@@ -3,11 +3,11 @@ using GalaSoft.MvvmLight.Command;
 using MvvmLight3.Model;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Navigation;
+using GalaSoft.MvvmLight.Messaging;
+using System.IO;
+using MvvmLight3.Common;
 
 namespace MvvmLight3.ViewModel
 {
@@ -19,15 +19,17 @@ namespace MvvmLight3.ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        private IFrameNavigationService _navigationService;
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel(IDataService dataService)
+        public MainViewModel(IDataService dataService, IFrameNavigationService navigationService)
         {
+            _navigationService = navigationService;
             this.navMenu = new ObservableCollection<NavigationItem>();
             navMenu.Add(new NavigationItem { NavTitle = "Home", NavIcon = "Home", NavPage = "View/TasksView.xaml" });
-            navMenu.Add(new NavigationItem { NavTitle = "Tasks", NavIcon = "CalendarCheck", NavPage = "View/TasksView.xaml" });
-            navMenu.Add(new NavigationItem { NavTitle = "Customers", NavIcon = "Account", NavPage = "View/AccountsView.xaml" });
+            navMenu.Add(new NavigationItem { NavTitle = "Tasks", NavIcon = "CalendarCheck", NavPage = "TasksView" });
+            navMenu.Add(new NavigationItem { NavTitle = "Customers", NavIcon = "Account", NavPage = "AccountsView" });
             navMenu.Add(new NavigationItem { NavTitle = "Suppliers", NavIcon = "Palette", NavPage = "View/TasksView.xaml" });
             navMenu.Add(new NavigationItem { NavTitle = "Standard Items", NavIcon = "Wrench", NavPage = "View/TasksView.xaml" });
             navMenu.Add(new NavigationItem { NavTitle = "Quotes", NavIcon = "FormatQuoteClose", NavPage = "View/TasksView.xaml" });
@@ -59,7 +61,8 @@ namespace MvvmLight3.ViewModel
                         if (_navigate != null)
                         {
                             if (_navigate != null) {
-                                this.mainFrame = new Uri(selectedItem.NavPage.ToString(), UriKind.Relative);
+                                _navigationService.NavigateTo(selectedItem.NavPage.ToString());
+                                
                                 Cleanup();
                             }
                         }
